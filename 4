@@ -1,0 +1,43 @@
+
+import time
+import random
+
+
+# Simulating time requests from each machine
+def simulate_time_requests(num_machines):
+    requests = []
+    for _ in range(num_machines):
+        requests.append(random.randint(0, 100))
+    return requests
+
+
+# Coordinator calculates average time offset
+def calculate_offset(requests):
+    total_offset = sum(requests)
+    avg_offset = total_offset / len(requests)
+    return avg_offset
+
+
+# Machines adjust their clocks based on the average offset
+def adjust_clocks(avg_offset):
+    local_time = time.time()  # get local time
+    adjusted_time = local_time + avg_offset
+    return adjusted_time
+
+
+# Simulate the Berkeley algorithm
+def berkeley_algorithm(num_machines):
+    requests = simulate_time_requests(num_machines)
+    avg_offset = calculate_offset(requests)
+    adjusted_time = adjust_clocks(avg_offset)
+    return adjusted_time
+
+
+# Take input from the user for the number of machines
+num_machines = int(input("Enter the number of machines: "))
+# Verify if the input is valid
+if num_machines <= 0:
+    print("Invalid input. Number of machines should be greater than zero.")
+else:
+    adjusted_time = berkeley_algorithm(num_machines)
+    print("Adjusted Time:", adjusted_time)
